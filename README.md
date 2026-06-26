@@ -5,10 +5,11 @@ This code example demonstrates how an PSOC&trade; Edge MCU detects a USB suspend
 The PSOC&trade; Edge MCU operates in the CPU active power mode before the host decides to suspend the USB device. The PSOC&trade; Edge CM33 CPU goes to sleep as soon as USB suspend condition is detected, to consume less power. The USB device maximum suspend current should not exceed 500 µA (for a low-power device) to be compliant with the USB specification. When the host decides to wake up the USB device, it drives a resume condition on the bus. This drives the PSOC&trade; Edge CM33 CPU to wake up and change its power mode to CPU active. This example uses an 'User LED1' to indicate the USB device state and the PSOC&trade; Edge CM33 CPU power mode. The 'User LED1' is off when a suspend condition is detected. The LED is on when the USB is active.
 
 This code example has a three project structure: CM33 secure, CM33 non-secure, and CM55 projects. All three projects are programmed to the external QSPI flash and executed in Execute in Place (XIP) mode. Extended boot launches the CM33 secure project from a fixed location in the external flash, which then configures the protection settings and launches the CM33 non-secure application. Additionally, CM33 non-secure application enables CM55 CPU and launches the CM55 application.
+> **Note:** On the KIT_PSE84_HMI, all three projects are programmed to the external OSPI flash instead of QSPI.
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-psoc-edge-usb-suspend-resume)
 
-[Provide feedback on this code example.](https://yourvoice.infineon.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzkyMTIiLCJTcGVjIE51bWJlciI6IjAwMi0zOTIxMiIsIkRvYyBUaXRsZSI6IlBTT0MmdHJhZGU7IEVkZ2UgTUNVOiBlbVVTQi1EZXZpY2Ugc3VzcGVuZCBhbmQgcmVzdW1lIiwicmlkIjoic25laGEuc2FyYXZhbmFrdW1hckBpbmZpbmVvbi5jb20iLCJEb2MgdmVyc2lvbiI6IjIuMS4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
+[Provide feedback on this code example.](https://yourvoice.infineon.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzkyMTIiLCJTcGVjIE51bWJlciI6IjAwMi0zOTIxMiIsIkRvYyBUaXRsZSI6IlBTT0MmdHJhZGU7IEVkZ2UgTUNVOiBlbVVTQi1EZXZpY2Ugc3VzcGVuZCBhbmQgcmVzdW1lIiwicmlkIjoic25laGEuc2FyYXZhbmFrdW1hckBpbmZpbmVvbi5jb20iLCJEb2MgdmVyc2lvbiI6IjIuMi4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
 
 See the [Design and implementation](docs/design_and_implementation.md) for the functional description of this code example.
 
@@ -33,6 +34,7 @@ See the [Design and implementation](docs/design_and_implementation.md) for the f
 
 - [PSOC&trade; Edge E84 Evaluation Kit](https://www.infineon.com/KIT_PSE84_EVAL) (`KIT_PSE84_EVAL_EPC2`) – Default value of `TARGET`
 - [PSOC&trade; Edge E84 Evaluation Kit](https://www.infineon.com/KIT_PSE84_EVAL) (`KIT_PSE84_EVAL_EPC4`)
+- [PSOC&trade; Edge E84 HMI Kit](https://www.infineon.com/KIT_PSE84_HMI) (`KIT_PSE84_HMI`)
 
 
 ## Hardware setup
@@ -72,7 +74,7 @@ See [Using the code example](docs/using_the_code_example.md) for instructions on
 5. Verify that a new USB device enumerates as a virtual COM port in the PC
 
 6. Open any terminal emulator application and select the USB COM port identified in step 5. Ensure that all other configuration settings remain as specified in step 2
-   
+
    After successful configuration, observe “USB is active” message periodically displayed on the terminal. Also, notice that the kit 'User LED1' (red LED) is on
 
    **Figure 2. USB device active output**
@@ -87,12 +89,12 @@ See [Using the code example](docs/using_the_code_example.md) for instructions on
 
    ![](images/kitprog3_usbd_device_suspend.png)
 
-   > **Note:** 
+   > **Note:**
    > 1. When putting the PC in sleep mode, the board should be powered either by connecting the KitProg3 connector to another PC or power source
     >  2. If the USB host cable is disconnected while keeping the board powered through the KitProg connector, the device goes to sleep
 
-8.  Use the mouse or keyboard to wake up the PC  
-   
+8.  Use the mouse or keyboard to wake up the PC
+
     The host generates a resume condition on the USB. PSOC&trade; Edge CM33 CPU resumes and restores communication through USB (the device is not enumerated again). Observe that the 'User LED1' turns back on.
 
     **Figure 4. KitProg3 USB device resume mode output**
@@ -129,6 +131,8 @@ Document title: *CE239212* - *PSOC&trade; Edge MCU: emUSB-Device suspend and res
  1.x.0   | New code example <br> Early access release
  2.0.0   | GitHub release
  2.1.0   | Updated design files to fix ModusToolbox&trade; v3.7 build warnings
+ 2.2.0   | Added support for KIT_PSE84_HMI
+<br>
 <br>
 
 
